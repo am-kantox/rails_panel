@@ -386,29 +386,19 @@ td[data-duration="secs"] { color: #999; background-color: #EDD; font-weight: bol
 td[data-duration="millis"] { color: #999; }
 
 td.td-debug {
-  background-image: url(../images/debug.svg);
-  background-repeat: no-repeat;
-  background-position: center center;
+  background: url(../images/debug.png) center transparent no-repeat;
 }
 td.td-info {
-  background-image: url(../images/info.svg);
-  background-repeat: no-repeat;
-  background-position: center center;
+  background: url(../images/info.png) center transparent no-repeat;
 }
 td.td-warn {
-  background-image: url(../images/warn.svg);
-  background-repeat: no-repeat;
-  background-position: center center;
+  background: url(../images/warn.png) center #ffd no-repeat;
 }
 td.td-error {
-  background-image: url(../images/error.svg);
-  background-repeat: no-repeat;
-  background-position: center center;
+  background: url(../images/error.png) center #fcc no-repeat;
 }
 td.td-any {
-  background-image: url(../images/any.png);
-  background-repeat: no-repeat;
-  background-position: center center;
+  background: url(../images/any.png) center #ddd no-repeat;
 }
 
 td.td-db {
