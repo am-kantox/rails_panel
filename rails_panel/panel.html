@@ -39,11 +39,11 @@
           <div class="data-container">
             <table id="requests">
               <tr ng-repeat="request in requests()" ng-click="setActive(request.key)" ng-class="getClass(request.key)">
-                <td class='status'>{{request.payload.status}}</td>
+                <td class='status' data-severity='{{request.payload.status}}'>{{request.payload.status}}</td>
                 <td class='controller'>{{request.payload.controller}}#{{request.payload.action}}</td>
-                <td class='method'>{{request.payload.method}}</td>
-                <td class='format'>{{request.payload.format}}</td>
-                <td class='duration'>{{request.duration | number:0}} ms</td>
+                <td class='method' data-severity='{{request.payload.status}}'>{{request.payload.method}}</td>
+                <td class='format' data-format='{{request.payload.format}}'>{{request.payload.format}}</td>
+                <td class='duration' data-duration='{{request.duration | checkDuration}}'>{{request.duration | number:0}} ms</td>
               </tr>
               <tr class="filler">
                 <td class='status'></td>
@@ -78,11 +78,14 @@
                 <li class="tabbed-pane-header-tab">
                   <a href="#tab-views" class="tabbed-pane-header-tab-title">Rendering</a>
                 </li>
-                <li class="tabbed-pane-header-tab">
+                <li class="tabbed-pane-header-tab" id="li-tab-log">
                   <a href="#tab-log" class="tabbed-pane-header-tab-title">Log</a>
                 </li>
-                <li class="tabbed-pane-header-tab">
+                <li class="tabbed-pane-header-tab" id="li-tab-error">
                   <a href="#tab-error" class="tabbed-pane-header-tab-title">Error</a>
+                </li>
+                <li class="tabbed-pane-header-tab">
+                  <a href="#tab-console" class="tabbed-pane-header-tab-title">Console</a>
                 </li>
               </ul>
             </div>
@@ -208,6 +211,31 @@
                   <td>{{exception.payload.call}}</td>
                 </tr>
               </table>
+            </div>
+            <div id="tab-console">
+              <table id="console" ng-show="notEmpty(activeConsoleMessages())">
+                <thead>
+                  <tr>
+                    <th class="th-severity">Type</th>
+                    <th class="th-type">Source</th>
+                    <th class="th-message">Message</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="message in activeConsoleMessages()" ng-show="showConsoleMessage(message.payload.level)" >
+                    <td class="td-{{message.payload.level}}" title="{{message.payload.level}}">        </td>
+                    <td class="td-{{message | parseConsoleMessage | parseConsoleMessageType}}">        </td>
+                    <td>
+                      {{message | parseConsoleMessage}}
+                      <br>
+                      <a class="small" href="{{message.payload.filename | editorify:message.payload.line}}">{{message.payload.filename | normalizePath}}:{{message.payload.line}}</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="queries-summary" ng-show="notEmpty(activeConsoleMessages())">
+                <div class="cached-queries-control"><input id="show_console_messages" type="checkbox" ng-model="showDebugInConsole"/><label for="show_console_messages">Show debug messages</label></div>
+              </div>
             </div>
           </div>
         </div>

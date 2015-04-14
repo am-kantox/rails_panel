@@ -18,6 +18,7 @@ module MetaRequest
         subscribe("render_partial.action_view").
         subscribe("render_template.action_view").
         subscribe("process_action.action_controller.exception").
+        subscribe("console_logger.message").
         subscribe("process_action.action_controller") do |*args|
           name, start, ending, transaction_id, payload = args
           payload[:format] ||= (payload[:formats]||[]).first # Rails 3.0.x Support
@@ -37,4 +38,3 @@ module MetaRequest
   end
 
 end
-

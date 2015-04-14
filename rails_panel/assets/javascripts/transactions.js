@@ -3,14 +3,16 @@ function TransactionsCtrl($scope) {
   $scope.transactionKeys     = [];
   $scope.requestsMap         = {}; // {transactionKey: {...}, ... }
   $scope.exceptionCallsMap   = {}; // {transactionKey: {...}, ... }
+  $scope.consoleMessagesMap  = {}; // {transactionKey: {...}, ... }
   $scope.logsMap             = {}; // {transactionKey: [{...}, {...}], ... }
   $scope.viewsMap            = {}; // {transactionKey: [{...}, {...}], ... }
   $scope.paramsMap           = {}; // {transactionKey: [{...}, {...}], ... }
   $scope.sqlsMap             = {}; // {transactionKey: [{...}, {...}], ... }
   $scope.sqlsCachedCountMap  = {}; // {transactionKey: count, ...}
   $scope.showCachedSqls      = true;
+  $scope.showDebugInConsole  = false;
 
-  $scope.expectedMetaRequestVersion = '0.3.4'
+  $scope.expectedMetaRequestVersion = '0.4.0'
   $scope.metaRequestVersion  = $scope.expectedMetaRequestVersion;
 
   $scope.outdatedMetaRequest = function() {
@@ -24,7 +26,7 @@ function TransactionsCtrl($scope) {
       return request;
     });
   }
-  
+
   $scope.activeKey = null;
 
   $scope.clear = function() {
@@ -32,12 +34,13 @@ function TransactionsCtrl($scope) {
     $scope.requestsMap = {};
     $scope.logsMap = {};
     $scope.exceptionCallsMap = {};
+    $scope.consoleMessagesMap = {};
     $scope.viewsMap = {};
     $scope.paramsMap = {};
     $scope.sqlsMap = {};
     $scope.activeKey = null;
   }
-  
+
   $scope.activeRequest = function() {
     return $scope.requestsMap[$scope.activeKey];
   }
@@ -66,9 +69,13 @@ function TransactionsCtrl($scope) {
   $scope.activeSqls = function() {
     return $scope.sqlsMap[$scope.activeKey];
   }
-  
+
   $scope.showQuery = function(type) {
     return $scope.showCachedSqls || type !== "CACHE";
+  }
+
+  $scope.showConsoleMessage = function(type) {
+    return $scope.showDebugInConsole || type !== "debug";
   }
 
   $scope.notEmpty = function(col) {
@@ -77,8 +84,8 @@ function TransactionsCtrl($scope) {
     } else {
       return col.length > 0;
     }
-  } 
-  
+  }
+
   $scope.activeParams = function() {
     return $scope.paramsMap[$scope.activeKey];
   }
@@ -89,6 +96,14 @@ function TransactionsCtrl($scope) {
 
   $scope.activeExceptionCalls = function() {
     return $scope.exceptionCallsMap[$scope.activeKey];
+  }
+
+  $scope.activeConsoleMessages = function() {
+    // FIXME UGLY HACK, BUT WHY ON THE EARTH THERE ARE PAIRS OF THEM?!
+    var result = $scope.consoleMessagesMap[$scope.activeKey];
+    return result ? result.filter(function(element, index, array) {
+      return index == 0 || element.payload.message != array[index - 1].payload.message
+    }) : result;
   }
 
   $scope.setActive = function(transactionId) {
@@ -119,7 +134,7 @@ function TransactionsCtrl($scope) {
         return data.durationRounded - data.payload.dbRuntimeRounded - data.payload.viewRuntimeRounded;
       }();
       $scope.requestsMap[key] = data;
-      Object.keys(data.payload.params).each(function(n) { 
+      Object.keys(data.payload.params).each(function(n) {
         $scope.pushToMap($scope.paramsMap, key, {name:n, value:data.payload.params[n]});
       });
       $scope.transactionKeys.push(key);
@@ -127,6 +142,9 @@ function TransactionsCtrl($scope) {
       break;
     case "process_action.action_controller.exception":
       $scope.pushToMap($scope.exceptionCallsMap, key, data);
+      break;
+    case "console_logger.message":
+      $scope.pushToMap($scope.consoleMessagesMap, key, data);
       break;
     case "render_template.action_view":
       $scope.pushToMap($scope.viewsMap, key, data);
@@ -162,7 +180,7 @@ function TransactionsCtrl($scope) {
     if (typeof value == 'undefined') {
       map[key] = [data];
     } else {
-      value.push(data) 
+      value.push(data)
     }
   }
 

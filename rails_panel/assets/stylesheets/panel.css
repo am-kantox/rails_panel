@@ -372,6 +372,76 @@ table#breakdown td.meter-col {
   float:left;
 }
 
+/* ========================================================================== */
 
+td[data-severity^="2"] { color: olive; }
+td[data-severity^="3"] { color: navy; }
+td[data-severity^="4"] { color: orange; }
+td[data-severity^="5"] { color: maroon; font-weight: bold; }
 
+td[data-format="html"] { color: #aaa; font-weight: bold; }
+td[data-format="json"] { color: #ccc; }
 
+td[data-duration="secs"] { color: #999; background-color: #EDD; font-weight: bold; margin: 1px 0; }
+td[data-duration="millis"] { color: #999; }
+
+td.td-debug {
+  background-image: url(../images/debug.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+td.td-info {
+  background-image: url(../images/info.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+td.td-warn {
+  background-image: url(../images/warn.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+td.td-error {
+  background-image: url(../images/error.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+td.td-any {
+  background-image: url(../images/any.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+td.td-db {
+  background-image: url(../images/db.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+td.td-starred {
+  background-image: url(../images/starred.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+td.td-non-starred {
+  background-image: url(../images/non-starred.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+td.td-rendered {
+  background-image: url(../images/rendered.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+td.td-parameters {
+  background-image: url(../images/parameters.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+td.td-strategies {
+  background-image: url(../images/strategies.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+a.small { font-size: smaller; display: block; width: 100%; text-align: right; }
+
+#li-tab-log, #tab-log, #li-tab-error, #tab-error { display: none; }

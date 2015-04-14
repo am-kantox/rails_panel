@@ -20,11 +20,13 @@ module MetaRequest
       Rails.logger.extend(LogInterceptor) if Rails.logger
     end
 
+    initializer 'meta_request.console_messenger' do
+      Rails.logger.extend(ConsoleMessenger) if Rails.logger
+    end
+
     initializer 'meta_request.subscribe_to_notifications' do
       AppNotifications.subscribe
     end
 
   end
 end
-
-

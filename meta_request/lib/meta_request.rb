@@ -5,6 +5,7 @@ module MetaRequest
   autoload :Storage,          "meta_request/storage"
   autoload :Middlewares,      "meta_request/middlewares"
   autoload :LogInterceptor,   "meta_request/log_interceptor"
+  autoload :ConsoleMessenger, "meta_request/console_messenger"
   autoload :AppNotifications, "meta_request/app_notifications"
 
   def self.logger

@@ -13,6 +13,14 @@ module MetaRequest
       @duration = 1000.0 * (ending - start)
     end
 
+    def == other
+      self.name == other.name && 
+        self.start == other.start && 
+        self.ending == other.ending && 
+        self.transaction_id == other.transaction_id && 
+        self.payload == other.payload
+    end
+
     def self.events_for_exception(exception_wrapper)
       if defined?(ActionDispatch::ExceptionWrapper)
         exception = exception_wrapper.exception
