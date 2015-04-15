@@ -10,9 +10,9 @@ Gem::Specification.new do |gem|
 
   gem.version      = MetaRequest::VERSION
 
-  gem.author       = 'Dejan Simic'
-  gem.email        = 'desimic@gmail.com'
-  gem.homepage     = 'https://github.com/dejan/rails_panel/tree/master/meta_request'
+  gem.authors      = ['Dejan Simic', 'Aleksei Matiushkin']
+  gem.email        = ['desimic@gmail.com', 'aleksei.matiushkin@kantox.com']
+  gem.homepage     = 'https://github.com/am-kantox/rails_panel/tree/master/meta_request'
   gem.license      = 'MIT'
 
   gem.add_dependency 'railties', '>= 3.0.0', '< 5.0.0'
