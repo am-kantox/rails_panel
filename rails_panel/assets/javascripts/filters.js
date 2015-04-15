@@ -14,7 +14,7 @@ angular.module('RailsPanel', [])
         subl: "subl://open?url=file://%s&line=%d&column=%d",
         sblm: "sblm:///%s",
         emacs: "emacs://open?url=file://%s&line=%d&column=%d",
-        atom: "atom:///%s",
+        atom: "atom://../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../%s:%d",
         mine: "rubymine://open?url=file://%s&line=%d"}
       var editor = localStorage.getItem("railspanel.editor");
       var editorPrefix = mapping[editor]
