@@ -11,6 +11,7 @@ function TransactionsCtrl($scope) {
   $scope.sqlsCachedCountMap  = {}; // {transactionKey: count, ...}
   $scope.showCachedSqls      = true;
   $scope.showDebugInConsole  = false;
+  $scope.payloadParamsMap    = {}; // {transactionKey: params, ...}
 
   $scope.expectedMetaRequestVersion = '0.4.0'
   $scope.metaRequestVersion  = $scope.expectedMetaRequestVersion;
@@ -39,6 +40,7 @@ function TransactionsCtrl($scope) {
     $scope.paramsMap = {};
     $scope.sqlsMap = {};
     $scope.activeKey = null;
+    $scope.payloadParamsMap = {};
   }
 
   $scope.activeRequest = function() {
@@ -90,6 +92,10 @@ function TransactionsCtrl($scope) {
     return $scope.paramsMap[$scope.activeKey];
   }
 
+  $scope.activePayloadParams = function() {
+    return $scope.payloadParamsMap[$scope.activeKey];
+  }
+
   $scope.activeLog = function() {
     return $scope.logsMap[$scope.activeKey];
   }
@@ -137,6 +143,7 @@ function TransactionsCtrl($scope) {
       Object.keys(data.payload.params).each(function(n) {
         $scope.pushToMap($scope.paramsMap, key, {name:n, value:data.payload.params[n]});
       });
+      $scope.payloadParamsMap[key] = JSON.stringify(data.payload.params);
       $scope.transactionKeys.push(key);
       $scope.setActive(key);
       break;

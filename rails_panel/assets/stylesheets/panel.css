@@ -392,10 +392,10 @@ td.td-info {
   background: url(../images/info.png) center transparent no-repeat;
 }
 td.td-warn {
-  background: url(../images/warn.png) center #ffd no-repeat;
+  background: url(../images/warn.png) center #ffe no-repeat;
 }
 td.td-error {
-  background: url(../images/error.png) center #fcc no-repeat;
+  background: url(../images/error.png) center #fdd no-repeat;
 }
 td.td-any {
   background: url(../images/any.png) center #ddd no-repeat;
