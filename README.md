@@ -8,6 +8,7 @@ Added by @am-kantox:
 * complete application log with backreferences;
 * colorized server HTTP responses;
 * highlighted responses >1s;
+* parametrers are shown in human-readable manner;
 * atom editor support;
 * code cleanup.
 
@@ -58,8 +59,8 @@ You can clear the panel with the usual shortcuts of ⌘+k or ctrl+l.
 
 ## Licence
 
-Copyright (c) 2012 Dejan Simic
-Copyright (c) 2015 Aleksei Matiushkin
+* Copyright (c) 2012 Dejan Simic  
+* Copyright (c) 2015 Kantox LTD
 
 MIT License
 
