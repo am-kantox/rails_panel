@@ -13,7 +13,7 @@ module MetaRequest
     end
 
     def read
-      File.read(json_file)
+      File.exist?(json_file) ? File.read(json_file) : ''
     end
 
     private
@@ -27,7 +27,7 @@ module MetaRequest
     end
 
     def file_ctime(file)
-      File.stat(file).ctime.to_i 
+      File.stat(file).ctime.to_i
     rescue Errno::ENOENT
       0
     end
