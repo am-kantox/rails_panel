@@ -2,6 +2,8 @@ module MetaRequest
   class Storage
     attr_reader :key
 
+    FILE_POOL_SIZE = 100
+
     def initialize(key)
       @key = key
     end
@@ -9,7 +11,7 @@ module MetaRequest
     def write(value)
       FileUtils.mkdir_p dir_path
       File.open(json_file, 'wb') { |file| file.write(value) }
-      maintain_file_pool(10)
+      maintain_file_pool(FILE_POOL_SIZE)
     end
 
     def read
